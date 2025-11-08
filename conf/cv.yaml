@@ -1,5 +1,5 @@
 # @package cv
 
-n_splits: 5
+n_splits: 5 # 5_fold
 shuffle: true
 random_state: 42

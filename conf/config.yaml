@@ -2,14 +2,14 @@ defaults:
   - cv
   - modelA
   - modelB
-  - override hydra/sweeper: optuna # hydra-optuna-sweeper 플러그인 사용
+  - override hydra/sweeper: optuna # hydra-optuna-sweeper 플러그인 사용 => 하이퍼 파라미터 탐색
 
 general: 
-  base_dir: "./data"
-  model_save_dir: "./model"
+  base_dir: "./data" # 데이터 위치
+  model_save_dir: "./model" # 모델 저장 위치
   feature_file: "all_train_data.feather"
 
-cat_features: ["Age", "PrimaryKey"]
+cat_features: ["Age", "PrimaryKey"] # CatBoost에서 사용할 범주형 데이터
 drop_cols_train:
 - "Test_id"
 - "Test_x"
@@ -26,10 +26,10 @@ metric:
 hydra:
   sweeper:
     n_trials: 20
-    n_jobs: 1
+    n_jobs: 1 # 순차 실행
     study_name: catboost_optuna_tune
-    direction: minimize
-    storage: null
+    direction: minimize # loss 최소화
+    storage: null # DB 저장 X
     sampler:
       _target_: optuna.samplers.TPESampler
       seed: 42
