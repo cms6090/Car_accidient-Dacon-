@@ -1,0 +1,42 @@
+defaults:
+  - cv
+  - modelA
+  - modelB
+  - override hydra/sweeper: optuna # hydra-optuna-sweeper 플러그인 사용
+
+general: 
+  base_dir: "./data"
+  model_save_dir: "./model"
+  feature_file: "all_train_data.feather"
+
+cat_features: ["Age", "PrimaryKey"]
+drop_cols_train:
+- "Test_id"
+- "Test_x"
+- "Test_y"
+- "Label"
+- "TestDate"
+- "Year"
+- "Month"
+- "base_index"
+
+metric:
+  n_bins_ece: 10
+
+hydra:
+  sweeper:
+    n_trials: 20
+    n_jobs: 1
+    study_name: catboost_optuna_tune
+    direction: minimize
+    storage: null
+    sampler:
+      _target_: optuna.samplers.TPESampler
+      seed: 42
+    params:
+      modelA.learning_rate: interval(0.02, 0.1)
+      modelA.depth: int(interval(4, 10))
+      modelA.l2_leaf_reg: int(interval(1, 10))
+      modelB.learning_rate: interval(0.02, 0.1)
+      modelB.depth: int(interval(4, 10))
+      modelB.l2_leaf_reg: int(interval(1, 10))

@@ -1,0 +1,11 @@
+# @package modelB
+
+iterations: 3000
+learning_rate: 0.05
+depth: 6
+l2_leaf_reg: 3
+loss_function: "Logloss"
+eval_metric: "AUC"
+early_stopping_rounds: 100
+task_type: "GPU"
+thread_count: -1
