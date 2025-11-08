@@ -3,7 +3,6 @@
 ##
 ## 목적: PDF 명세서 기반으로 '진짜' 피처를 생성하고 Feather 파일로 저장
 ## ----------------------------------------------------------------
-
 import os
 import numpy as np
 import pandas as pd
